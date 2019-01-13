@@ -15,15 +15,17 @@
  * Input: "226"
  * Output: 3
  * Explanation: It could be decoded as "BZ" (2 26), "VF" (22 6), or "BBF" (2 2 6).
+ * 
+ * https://leetcode.com/problems/decode-ways/
  */
 const numDecodingsInSubstring = (str, k, cache) => {
 
     // base case 1: empty string    
-    if (k === 0) return 1; 
+    if (k == 0) return 1; 
 
     // base case 2: string starting with 0 
     const s = str.length - k;
-    if (str[s] === '0') return 0;    
+    if (str[s] == 0) return 0;    
 
     if(cache[k]) return cache[k]; // return memoized result if we have it
 
@@ -39,7 +41,7 @@ const numDecodingsInSubstring = (str, k, cache) => {
     return result;
 }
 
-var numDecodings = function(s) {
+const numDecodings = function(s) {
     const cache = [];
     return numDecodingsInSubstring(s, s.length, cache);
 };

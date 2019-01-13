@@ -20,5 +20,4 @@ describe("Test recursive cases", () => {
     test("Random string", () => {
         expect(numDecodings("1211")).toBe(5);
     });
-
-})
+});
