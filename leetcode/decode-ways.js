@@ -41,7 +41,7 @@ const numDecodingsInSubstring = (str, k, cache) => {
     return result;
 }
 
-const numDecodings = function(s) {
+const numDecodings = (s) => {
     const cache = [];
     return numDecodingsInSubstring(s, s.length, cache);
 };
