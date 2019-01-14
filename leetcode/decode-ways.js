@@ -18,32 +18,37 @@
  * 
  * https://leetcode.com/problems/decode-ways/
  */
-const numDecodingsInSubstring = (str, k, cache) => {
-
-    // base case 1: empty string    
-    if (k == 0) return 1; 
-
-    // base case 2: string starting with 0 
-    const s = str.length - k;
-    if (str[s] == 0) return 0;    
-
-    if(cache[k]) return cache[k]; // return memoized result if we have it
-
-    // decode 1 digit
-    let result = numDecodingsInSubstring(str, k - 1, cache);    
-
-    // decode 2 digits
-    // if we have at least 2 digits in the remaining string
-    if (k >= 2 && str.substring(s, s + 2) <= 26) {        
-        result += numDecodingsInSubstring(str, k - 2, cache);
-    }
-    cache[k] = result; // memoize result before returning it
-    return result;
-}
-
-const numDecodings = (s) => {
+const numDecodings = (str) => {
+    // cache in closure, for memoization
     const cache = [];
-    return numDecodingsInSubstring(s, s.length, cache);
+
+    // numDigits -> number of digits to process in the next step
+    const numDecodingsInSubstring = (numDigits) => {
+    
+        // base case 1: empty string    
+        if (numDigits == 0) return 1; 
+
+        // base case 2: string starting with 0 
+        const startIdx = str.length - numDigits;
+        if (str[startIdx] == 0) return 0; 
+
+        // return memoized result if we have it
+        if(cache[numDigits]) return cache[numDigits]; 
+
+        // decode 1 digit
+        let result = numDecodingsInSubstring(numDigits - 1);    
+
+        // decode 2 digits, if we have at least 2 digits in the remaining string 
+        // and the index is a valid alphabet index 
+        if (numDigits >= 2 && str.substring(startIdx, startIdx + 2) <= 26) {        
+            result += numDecodingsInSubstring(numDigits - 2);
+        }
+
+        // memoize result before returning it
+        cache[numDigits] = result; 
+        return result;
+    }
+    return numDecodingsInSubstring(str.length);
 };
 
 module.exports = numDecodings;
