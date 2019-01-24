@@ -28,9 +28,6 @@ function solution(N, M, X, Y) {
     
     const minesEachSon = X.length / 2;
     
-    X.sort();
-    Y.sort();
-
     const calculateDividers = (coordinates, gridSize) => coordinates
         .reduce((acc, el) => { acc[el]++; return acc; }, new Array(gridSize).fill(0))
         .reduce((acc, mines) => {
